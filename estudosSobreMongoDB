@@ -40,11 +40,95 @@ db.serverStatus(): Retorna informações sobre o status do servidor.
 Esses comandos permitem a manipulação completa dos dados no MongoDB, 
 desde a criação e exclusão de bancos de dados e coleções até operações avançadas de consulta e agregação.
 
-Para usar o MongoDB online sem precisar baixar, você pode optar por serviços de bancos de dados MongoDB baseados em nuvem. 
+No MongoDB, os operadores e métodos são usados para filtrar, ordenar e manipular dados durante as consultas e atualizações. Vamos explorar os operadores $gte, $lt, $lte, e os métodos como sort e outros, explicando cada um deles.
 
+1- Operadores de Comparação
+Esses operadores são usados para comparar valores durante as consultas. 
+Os operadores mais comuns incluem:
+
+$gte (Greater Than or Equal): Seleciona documentos onde o valor de um campo é maior ou igual ao valor especificado.
+Exemplo: db.collection.find({ idade: { $gte: 18 } }) retorna documentos onde o campo idade é maior ou igual a 18.
+$lt (Less Than): Seleciona documentos onde o valor de um campo é menor do que o valor especificado.
+Exemplo: db.collection.find({ preco: { $lt: 100 } }) retorna documentos onde o campo preco é menor que 100.
+$lte (Less Than or Equal): Seleciona documentos onde o valor de um campo é menor ou igual ao valor especificado.
+Exemplo: db.collection.find({ idade: { $lte: 30 } }) retorna documentos onde o campo idade é menor ou igual a 30.
+Esses operadores são utilizados principalmente em consultas para filtrar dados com base em condições específicas.
+
+2. Métodos de Ordenação e Limitação
+Esses métodos são usados para organizar e restringir os resultados das consultas:
+
+sort(): Ordena os resultados de uma consulta com base em um ou mais campos.
+Sintaxe: db.collection.find().sort({ campo: 1 }), onde 1 indica ordem crescente e -1 indica ordem decrescente.
+Exemplo: db.collection.find().sort({ nome: 1, idade: -1 }) ordena os documentos em ordem crescente de nome e, se houver empate, em ordem decrescente de idade.
+limit(): Limita o número de documentos retornados pela consulta.
+Exemplo: db.collection.find().limit(5) retorna os primeiros 5 documentos da coleção.
+skip(): Pula um número específico de documentos no resultado.
+Exemplo: db.collection.find().skip(10) ignora os primeiros 10 documentos e retorna os próximos.
+
+3. Outros Operadores Úteis
+Além dos operadores de comparação, há outros operadores comuns no MongoDB:
+
+$in: Seleciona documentos onde o valor de um campo corresponde a qualquer valor de uma lista especificada.
+Exemplo: db.collection.find({ categoria: { $in: ['eletrônicos', 'livros'] } }) retorna documentos onde o campo categoria é "eletrônicos" ou "livros".
+$ne (Not Equal): Seleciona documentos onde o valor de um campo é diferente do valor especificado.
+Exemplo: db.collection.find({ status: { $ne: 'inativo' } }) retorna documentos onde o campo status não é "inativo".
+$exists: Verifica se um campo existe ou não no documento.
+Exemplo: db.collection.find({ endereco: { $exists: true } }) retorna documentos que têm o campo endereco.
+$regex: Permite buscar documentos onde o valor de um campo corresponde a uma expressão regular.
+Exemplo: db.collection.find({ nome: { $regex: /^Jo/ } }) retorna documentos onde o campo nome começa com "Jo".
+Esses operadores e métodos oferecem grande flexibilidade nas consultas, permitindo realizar operações complexas de filtragem, ordenação,
+e modificação dos dados de forma eficiente.
+
+4. Operadores de Comparação Adicionais
+$gt (Greater Than): Seleciona documentos onde o valor de um campo é maior do que o valor especificado.
+Exemplo: db.collection.find({ idade: { $gt: 18 } }) retorna documentos onde o campo idade é maior que 18.
+$nin (Not In): Seleciona documentos onde o valor de um campo não está presente em uma lista de valores.
+Exemplo: db.collection.find({ categoria: { $nin: ['eletrônicos', 'livros'] } }) retorna documentos onde o campo categoria não é "eletrônicos" nem "livros".
+
+5. Operadores Lógicos
+$and: Usa múltiplas condições que devem ser atendidas ao mesmo tempo.
+Exemplo: db.collection.find({ $and: [{ idade: { $gte: 18 } }, { idade: { $lte: 30 } }] }) retorna documentos onde idade está entre 18 e 30.
+$or: Pelo menos uma das condições especificadas deve ser atendida.
+Exemplo: db.collection.find({ $or: [{ status: 'ativo' }, { status: 'pendente' }] }) retorna documentos onde status é "ativo" ou "pendente".
+$not: Inverte o resultado de uma expressão de consulta.
+Exemplo: db.collection.find({ idade: { $not: { $gte: 18 } } }) retorna documentos onde idade é menor que 18.
+$nor: Nenhuma das condições especificadas deve ser atendida.
+Exemplo: db.collection.find({ $nor: [{ status: 'ativo' }, { status: 'pendente' }] }) retorna documentos onde status não é "ativo" nem "pendente".
+
+6. Operadores de Elementos
+$type: Seleciona documentos onde o valor de um campo é de um tipo especificado.
+Exemplo: db.collection.find({ idade: { $type: 'int' } }) retorna documentos onde o campo idade é do tipo inteiro.
+$size: Seleciona documentos onde um campo de array tem um número específico de elementos.
+Exemplo: db.collection.find({ interesses: { $size: 3 } }) retorna documentos onde o campo interesses é um array com exatamente 3 elementos.
+$all: Seleciona documentos onde um array contém todos os valores especificados.
+Exemplo: db.collection.find({ tags: { $all: ['mongodb', 'database'] } }) retorna documentos onde o campo tags contém "mongodb" e "database".
+
+7. Operadores de Atualização
+$set: Atualiza o valor de um campo, ou adiciona o campo se ele não existir.
+Exemplo: db.collection.updateOne({ nome: 'João' }, { $set: { idade: 25 } }) define o campo idade para 25.
+$unset: Remove um campo de um documento.
+Exemplo: db.collection.updateOne({ nome: 'João' }, { $unset: { idade: '' } }) remove o campo idade.
+$inc: Incrementa o valor de um campo numérico.
+Exemplo: db.collection.updateOne({ nome: 'João' }, { $inc: { idade: 1 } }) incrementa o valor do campo idade em 1.
+$push: Adiciona um elemento ao final de um array.
+Exemplo: db.collection.updateOne({ nome: 'João' }, { $push: { interesses: 'esportes' } }) adiciona "esportes" ao array interesses.
+$pop: Remove o primeiro ou último elemento de um array.
+Exemplo: db.collection.updateOne({ nome: 'João' }, { $pop: { interesses: -1 } }) remove o primeiro elemento do array interesses.
+$addToSet: Adiciona um valor a um array somente se ele ainda não estiver presente.
+Exemplo: db.collection.updateOne({ nome: 'João' }, { $addToSet: { interesses: 'música' } }) adiciona "música" ao array interesses se ainda não estiver lá.
+
+8. Métodos de Manipulação de Arrays
+$elemMatch: Seleciona documentos se pelo menos um elemento no array atende à condição especificada.
+Exemplo: db.collection.find({ notas: { $elemMatch: { $gte: 80, $lt: 90 } } }) retorna documentos onde o array notas contém um valor entre 80 e 90.
+$slice: Limita os elementos retornados de um array em uma consulta.
+Exemplo: db.collection.find({ nome: 'João' }, { interesses: { $slice: 2 } }) retorna os primeiros dois elementos do array interesses.
+
+Para usar o MongoDB online sem precisar baixar, você pode optar por serviços de bancos de dados MongoDB baseados em nuvem. 
 MongoDB Atlas: É a plataforma oficial de banco de dados como serviço (DBaaS) da MongoDB. Com o Atlas,
 você pode configurar, implantar e gerenciar bancos de dados MongoDB diretamente na nuvem, com opções de teste gratuito. 
 Basta criar uma conta, configurar um cluster, e você poderá gerenciar e consultar o banco de dados diretamente pelo navegador.
+
+
 
 
 
