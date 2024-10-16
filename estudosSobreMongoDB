@@ -1,0 +1,54 @@
+No MongoDB, há uma variedade de comandos usados para interagir com o banco de dados
+e realizar operações de gerenciamento e manipulação de dados. Aqui estão alguns dos principais comandos,
+com uma explicação para cada um:
+
+1. Comandos de Gerenciamento de Banco de Dados
+show dbs: Lista todos os bancos de dados disponíveis no servidor MongoDB.
+use <nome_do_banco>: Muda o contexto para o banco de dados especificado. 
+Se o banco não existir, ele será criado quando um documento for inserido.
+db: Exibe o banco de dados atualmente selecionado.
+2. Comandos de Gerenciamento de Coleções
+show collections: Lista todas as coleções no banco de dados atual.
+db.createCollection('<nome_da_colecao>'): Cria uma nova coleção com o nome especificado.
+db.<nome_da_colecao>.drop(): Remove a coleção especificada.
+3. Comandos de Inserção de Dados
+db.<nome_da_colecao>.insertOne({ ... }): Insere um único documento na coleção especificada.
+db.<nome_da_colecao>.insertMany([{ ... }, { ... }, ...]): Insere múltiplos documentos de uma só vez na coleção.
+db.<nome_da_colecao>.insert({ ... }): Também insere documentos, mas foi substituído pelos métodos insertOne e insertMany.
+4. Comandos de Consulta de Dados
+db.<nome_da_colecao>.find({ ... }): Retorna todos os documentos que correspondem ao critério de consulta.
+Se nenhum critério for fornecido, todos os documentos serão retornados.
+db.<nome_da_colecao>.findOne({ ... }): Retorna um único documento que corresponde ao critério de consulta.
+db.<nome_da_colecao>.find({ ... }).pretty(): Exibe o resultado da consulta de forma mais legível.
+5. Comandos de Atualização de Dados
+db.<nome_da_colecao>.updateOne({ filtro }, { $set: { ... } }): Atualiza um único documento que corresponde ao filtro fornecido.
+db.<nome_da_colecao>.updateMany({ filtro }, { $set: { ... } }): Atualiza todos os documentos que correspondem ao filtro fornecido.
+db.<nome_da_colecao>.replaceOne({ filtro }, { documento }): Substitui um documento que corresponde ao filtro por um novo documento.
+6. Comandos de Exclusão de Dados
+db.<nome_da_colecao>.deleteOne({ ... }): Remove um único documento que corresponde ao critério.
+db.<nome_da_colecao>.deleteMany({ ... }): Remove todos os documentos que correspondem ao critério.
+db.<nome_da_colecao>.remove({ ... }): Também pode ser usado para excluir documentos, mas foi substituído pelos métodos deleteOne e deleteMany.
+7. Comandos de Indexação
+db.<nome_da_colecao>.createIndex({ campo: 1 }): Cria um índice no campo especificado, onde 1 indica ordem crescente.
+db.<nome_da_colecao>.dropIndex({ campo: 1 }): Remove um índice do campo especificado.
+8. Comandos de Agregação
+db.<nome_da_colecao>.aggregate([{ ... }]): Realiza operações de agregação, como filtros, agrupamentos e cálculos.
+9. Comandos Administrativos
+db.stats(): Exibe estatísticas do banco de dados atual.
+db.<nome_da_colecao>.stats(): Exibe estatísticas da coleção especificada.
+db.serverStatus(): Retorna informações sobre o status do servidor.
+Esses comandos permitem a manipulação completa dos dados no MongoDB, 
+desde a criação e exclusão de bancos de dados e coleções até operações avançadas de consulta e agregação.
+
+Para usar o MongoDB online sem precisar baixar, você pode optar por serviços de bancos de dados MongoDB baseados em nuvem. 
+
+MongoDB Atlas: É a plataforma oficial de banco de dados como serviço (DBaaS) da MongoDB. Com o Atlas,
+você pode configurar, implantar e gerenciar bancos de dados MongoDB diretamente na nuvem, com opções de teste gratuito. 
+Basta criar uma conta, configurar um cluster, e você poderá gerenciar e consultar o banco de dados diretamente pelo navegador.
+
+
+
+
+
+
+
